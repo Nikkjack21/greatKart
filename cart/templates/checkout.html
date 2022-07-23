@@ -111,6 +111,12 @@
           <dd class="text-right text-dark b"><strong>{{grand_total}}</strong></dd>
         </dl>
         <hr>
+        <form method="POST" action="{% url 'apply_coupon' %}">
+          {% csrf_token %}
+          <div class="form-group"> <label>Have coupon?</label>
+          <div class="input-group"> <input type="text" class="form-control coupon" name="coup" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+          </div>
+          </form>
         <p class="text-center mb-3">
           <img src="{% static 'images/misc/payments.png' %}" height="26">
         </p>
@@ -132,9 +138,15 @@
   
   
       
-  
-  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+  
+  <script>
+    {% for msg in messages %}
+    
+    swal('{{ msg }}', '', '');
+    {% endfor %}
+</script>
 
 
 

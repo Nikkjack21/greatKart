@@ -1,3 +1,4 @@
+import code
 from itertools import product
 import json
 from multiprocessing import context
@@ -7,6 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import *
 from django.core.exceptions import ObjectDoesNotExist
+from coupons.models import Coupons, CouponUsed
 # Create your views here.
 
 # def cart_user(request):
@@ -197,3 +199,40 @@ def buy_now(request,id, total=0):
     }
 
     return render(request, 'checkout.html', context)
+
+
+
+
+from django.contrib import messages
+
+def apply_coupon(request, coups=None):
+    if request.method == "POST":
+        code = request.POST.get('coup')
+        print(code  )
+        try:
+            coups = Coupons.objects.get(code=code)
+            request.session['coupon_id'] = coups.id
+            messages.success(request, 'COupon applied')
+            print('Coupon verified')
+            
+            try:
+                coupon_used = CouponUsed.objects.filter(coupon=coups,user=request.user).exists()
+                if coupon_used:
+                    print('Coupon already used')
+                    messages.success(request, "Coupon already used")
+                    return redirect(check_out)
+                else:
+                    coupon_used = CouponUsed.objects.create(coupon=coups, user=request.user)
+                    print('Coupon created to user')
+            except:
+                pass
+              
+
+        except Coupons.DoesNotExist:
+            print("Coupon Doesn't exist")
+            return redirect(check_out)
+            
+
+
+
+    return render(request, 'checkout.html')
