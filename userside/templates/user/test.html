@@ -1,0 +1,55 @@
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+      data-mdb-toggle="dropdown" aria-expanded="false">
+      Dropdown button
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+      <li>
+        <a class="dropdown-item" href="#">
+          Men &raquo;
+        </a>
+        <ul class="dropdown-menu dropdown-submenu">
+          <li>
+            <a class="dropdown-item" href="#">Submenu item 1</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Submenu item 2</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+            <ul class="dropdown-menu dropdown-submenu">
+              <li>
+                <a class="dropdown-item" href="#">Multi level 1</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Multi level 2</a>
+              </li>
+            </ul>
+          </li>
+
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+
+
+
+
+  <div class="category-wrap dropdown d-inline-block float-right">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> 
+        <i class="fa fa-bars"></i> All category 
+    </button>
+    <div class="dropdown-menu">
+        {% for cat in category %}
+        <a class="dropdown-item" href="/storecat/{{cat.id}}">{{cat.category_name}} </a>
+        {% endfor %}
+        {% comment %} <a class="dropdown-item" href="#">Test 1
+        </a> {% endcomment %}
+
+        <a class="dropdown-item" href="#">Test 1 </a>
+        <a class="dropdown-item" href="#">Test 1 </a>
+    </div>
+</div>
